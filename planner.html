@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Planner - Academic Planner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="plannerrr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#"><img src="./clu logo.jpg" alt="Logo"></a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./profile.html">Profile</a></li>
+                    <li><a href="./courses.html">Courses</a></li>
+                    <li><a href="./results.html">Results</a></li>
+                    <li><a href="./news.html">News and Events</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="planner-main">
+        <div class="container">
+            <h1>Academic Planner</h1>
+            <div class="planner-content">
+                <div class="section exams-section">
+                    <h2>Upcoming Exams</h2>
+                    <ul class="exams-list">
+                        <li><i class="fas fa-calendar-alt"></i> CSC101 - August 22, 2024</li>
+                        <li><i class="fas fa-calendar-alt"></i> MTH102 - August 24, 2024</li>
+                        <li><i class="fas fa-calendar-alt"></i> CSC102 - August 26, 2024</li>
+                    </ul>
+                    <a href="#" class="btn" id="addExamBtn">Add New Exam</a>
+                </div>
+
+                <div class="section assignments-section">
+                    <h2>Assignment Deadlines</h2>
+                    <ul class="assignments-list">
+                        <li><i class="fas fa-calendar-check"></i> Data Structures Assignment - August 20, 2024</li>
+                        <li><i class="fas fa-calendar-check"></i> Algorithms Assignment - August 23, 2024</li>
+                        <li><i class="fas fa-calendar-check"></i> Calculus Homework - August 25, 2024</li>
+                    </ul>
+                    <a href="#" class="btn" id="addAssignmentBtn">Add New Assignment</a>
+                </div>
+
+                <div class="section todo-section">
+                    <h2>To-Do List</h2>
+                    <ul class="todo-list">
+                        <li><i class="fas fa-tasks"></i> Complete Project Report</li>
+                        <li><i class="fas fa-tasks"></i> Review Lecture Notes</li>
+                        <li><i class="fas fa-tasks"></i> Prepare for CSC101 Exam</li>
+                    </ul>
+                    <a href="#" class="btn" id="addTaskBtn">Add New Task</a>
+                </div>
+
+                <div class="section progress-section">
+                    <h2>Progress Tracker</h2>
+                    <div class="progress-summary">
+                        <div class="progress-item">
+                            <label for="current-progress">Current Progress:</label>
+                            <input type="text" id="current-progress" value="75%">
+                        </div>
+                        <div class="progress-item">
+                            <label for="target-progress">Target Progress:</label>
+                            <input type="text" id="target-progress" value="90%">
+                        </div>
+                    </div>
+                    <a href="#" class="btn" id="updateProgressBtn">Update Progress</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Chrisland University. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Structure -->
+    <div id="examModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Exam</h3>
+            <form>
+                <label for="exam-name">Exam Name:</label>
+                <input type="text" id="exam-name">
+                <label for="exam-date">Exam Date:</label>
+                <input type="date" id="exam-date">
+                <button type="submit" class="btn">Add Exam</button>
+                <button type="button" class="btn cancel-btn" id="closeExamModal">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Assignment</h3>
+            <form>
+                <label for="assignment-name">Assignment Name:</label>
+                <input type="text" id="assignment-name">
+                <label for="assignment-date">Due Date:</label>
+                <input type="date" id="assignment-date">
+                <button type="submit" class="btn">Add Assignment</button>
+                <button type="button" class="btn cancel-btn" id="closeAssignmentModal">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Task</h3>
+            <form>
+                <label for="task-name">Task Name:</label>
+                <input type="text" id="task-name">
+                <button type="submit" class="btn">Add Task</button>
+                <button type="button" class="btn cancel-btn" id="closeTaskModal">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Modal Elements
+            const examModal = document.getElementById('examModal');
+            const assignmentModal = document.getElementById('assignmentModal');
+            const taskModal = document.getElementById('taskModal');
+            
+            const closeExamModal = document.getElementById('closeExamModal');
+            const closeAssignmentModal = document.getElementById('closeAssignmentModal');
+            const closeTaskModal = document.getElementById('closeTaskModal');
+
+            const addExamBtn = document.getElementById('addExamBtn');
+            const addAssignmentBtn = document.getElementById('addAssignmentBtn');
+            const addTaskBtn = document.getElementById('addTaskBtn');
+
+            // Open modals
+            addExamBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                examModal.style.display = 'block';
+            });
+
+            addAssignmentBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                assignmentModal.style.display = 'block';
+            });
+
+            addTaskBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                taskModal.style.display = 'block';
+            });
+
+            // Close modals
+            closeExamModal.addEventListener('click', function () {
+                examModal.style.display = 'none';
+            });
+
+            closeAssignmentModal.addEventListener('click', function () {
+                assignmentModal.style.display = 'none';
+            });
+
+            closeTaskModal.addEventListener('click', function () {
+                taskModal.style.display = 'none';
+            });
+
+            // Add new items to lists
+            document.querySelector('#examModal form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const examName = document.getElementById('exam-name').value;
+                const examDate = document.getElementById('exam-date').value;
+                const examsList = document.querySelector('.exams-list');
+                const newItem = document.createElement('li');
+                newItem.innerHTML = `<i class="fas fa-calendar-alt"></i> ${examName} - ${examDate}`;
+                examsList.appendChild(newItem);
+                examModal.style.display = 'none';
+                event.target.reset();
+            });
+
+            document.querySelector('#assignmentModal form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const assignmentName = document.getElementById('assignment-name').value;
+                const assignmentDate = document.getElementById('assignment-date').value;
+                const assignmentsList = document.querySelector('.assignments-list');
+                const newItem = document.createElement('li');
+                newItem.innerHTML = `<i class="fas fa-calendar-check"></i> ${assignmentName} - ${assignmentDate}`;
+                assignmentsList.appendChild(newItem);
+                assignmentModal.style.display = 'none';
+                event.target.reset();
+            });
+
+            document.querySelector('#taskModal form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const taskName = document.getElementById('task-name').value;
+                const todoList = document.querySelector('.todo-list');
+                const newItem = document.createElement('li');
+                newItem.innerHTML = `<i class="fas fa-tasks"></i> ${taskName}`;
+                todoList.appendChild(newItem);
+                taskModal.style.display = 'none';
+                event.target.reset();
+            });
+
+            // Update Progress
+            document.getElementById('updateProgressBtn').addEventListener('click', function (event) {
+                event.preventDefault();
+                const currentProgressElement = document.getElementById('current-progress');
+                const targetProgressElement = document.getElementById('target-progress');
+
+                let currentProgress = parseInt(currentProgressElement.value.replace('%', ''));
+                const targetProgress = parseInt(targetProgressElement.value.replace('%', ''));
+
+                if (currentProgress < targetProgress) {
+                    currentProgress += 5; // Increment progress by 5%
+                    if (currentProgress > targetProgress) {
+                        currentProgress = targetProgress;
+                    }
+                    currentProgressElement.value = currentProgress + '%';
+                } else {
+                    alert('You have already reached or exceeded your target progress!');
+                }
+            });
+
+            // Close modals when clicking outside
+            window.onclick = function (event) {
+                if (event.target == examModal) {
+                    examModal.style.display = 'none';
+                }
+                if (event.target == assignmentModal) {
+                    assignmentModal.style.display = 'none';
+                }
+                if (event.target == taskModal) {
+                    taskModal.style.display = 'none';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
